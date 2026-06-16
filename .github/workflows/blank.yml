@@ -2,15 +2,8 @@
 
 name: Build Images
 
-# Controls when the workflow will run
+# Run manually from the Actions tab only
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -34,7 +27,6 @@ jobs:
           rm *.gz
           cd ventoy-*
           lsblk
-          echo "ventoy version:1.1.10"
           pwd
           dd if=/dev/zero of=/tmp/256MBwLiveCD.img bs=512 count=491520
           lsblk
@@ -122,57 +114,15 @@ jobs:
           cd /tmp
           zip -r 8192MBempty.img.zip 8192MBempty.img
           echo 8192 megabyte complete
-      - name: Create release
-        id: create-new-release
-        uses: actions/create-release@v1
+      - name: Create release and upload assets
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: Build ${{ github.run_number }}  
-      - name: Upload 0256MBempty to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-          asset_path: /tmp/256MBempty.img.zip
-          asset_name: 0256MBempty_build${{ github.run_number }}.img.zip
-          asset_content_type: application/octet-stream
-      - name: Upload 1024MBempty to release
-        uses: actions/upload-release-asset@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-            upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-            asset_path: /tmp/1024MBempty.img.zip
-            asset_name: 1024MBempty_build${{ github.run_number }}.img.zip
-            asset_content_type: application/octet-stream
-      - name: Upload 4096MBempty to release
-        uses: actions/upload-release-asset@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-            upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-            asset_path: /tmp/4096MBempty.img.zip
-            asset_name: 4096MBempty_build${{ github.run_number }}.img.zip
-            asset_content_type: application/octet-stream
-      - name: Upload 8192MBempty to release
-        uses: actions/upload-release-asset@v1
-        env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-            upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-            asset_path: /tmp/8192MBempty.img.zip
-            asset_name: 8192MBempty_build${{ github.run_number }}.img.zip
-            asset_content_type: application/octet-stream
-      - name: Upload fat32usb.zip to release
-        uses: actions/upload-release-asset@v1
-        env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-            upload_url: ${{ steps.create-new-release.outputs.upload_url }}
-            asset_path: /tmp/fat32usb.zip
-            asset_name: fat32usb_build${{ github.run_number }}.zip
-            asset_content_type: application/octet-stream
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create ${{ github.run_number }} \
+            '/tmp/256MBempty.img.zip#0256MBempty_build${{ github.run_number }}.img.zip' \
+            '/tmp/1024MBempty.img.zip#1024MBempty_build${{ github.run_number }}.img.zip' \
+            '/tmp/4096MBempty.img.zip#4096MBempty_build${{ github.run_number }}.img.zip' \
+            '/tmp/8192MBempty.img.zip#8192MBempty_build${{ github.run_number }}.img.zip' \
+            '/tmp/fat32usb.zip#fat32usb_build${{ github.run_number }}.zip' \
+            --title "Build ${{ github.run_number }}"
           

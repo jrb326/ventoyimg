@@ -1,11 +1,17 @@
 # ventoyimg
-Latest upstream 1.1.12
+
 [![Build img](https://github.com/catherinedoyel/ventoyimg/actions/workflows/blank.yml/badge.svg)](https://github.com/catherinedoyel/ventoyimg/actions/workflows/blank.yml)
 
-Images with Ventoy & and EFI folder.
+Do not rely on these releases yet. Any files you download labeled as build are not widely tested.
 
-Do not rely these releases yet. Any files you download labeled as build are not widely tested.
-The process is very automated but still relies on a commit to create new releases.
+Pre-built disk images with Ventoy and a custom EFI boot menu (GParted Live not included but supported, Ventoy installer, KeyTool). Built automatically from the latest upstream Ventoy release.
+
+> **Note:** This project is mostly superseded by
+> [bootable-wiki/bwbundle](https://github.com/bootable-wiki/bwbundle) which
+> provides a more comprehensive solution. These raw Ventoy images may still be
+> useful for specific use cases.
+
+The `.img.zip` files contain a Ventoy formatted disk image with `ventoy.json` pre-applied — just flash with any imaging tool.
 
 # Using images (preferred solution)
 If you want to try the .img.zip files I would recommend using the following software.

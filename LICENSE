@@ -37,7 +37,7 @@ freedoms that you received.  You must make sure that they, too, receive
 or can get the source code.  And you must show them these terms so they
 know their rights.
 
-  Developers that use the GNU GPL protect your rights with two steps:
+  Developers that use the GNU GPL protect your rights in two steps:
 (1) assert copyright on the software, and (2) offer you this License
 giving you legal permission to copy, distribute and/or modify it.
 
@@ -343,13 +343,13 @@ unpacking, reading or copying.
   7. Additional Terms.
 
   "Additional permissions" are terms that supplement the terms of this
-License by making exceptions from one or more of its conditions.
-Additional permissions that are applicable to the entire Program shall
-be treated as though they were included in this License, to the extent
-that they are valid under applicable law.  If additional permissions
-apply only to part of the Program, that part may be used separately
-under those permissions, but the entire Program remains governed by
-this License without regard to the additional permissions.
+License by making exceptions from one or more of the conditions of
+this License.  Additional permissions that are applicable to the entire
+Program shall be treated as though they were included in this License, to
+the extent that they are valid under applicable law.  If additional
+permissions apply only to part of the Program, that part may be used
+separately under those permissions, but the entire Program remains
+governed by this License without regard to the additional permissions.
 
   When you convey a copy of a covered work, you may at your option
 remove any additional permissions from that copy, or from any part of
