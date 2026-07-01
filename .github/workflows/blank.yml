@@ -114,6 +114,21 @@ jobs:
           cd /tmp
           zip -r 8192MBempty.img.zip 8192MBempty.img
           echo 8192 megabyte complete
+          cd $GITHUB_WORKSPACE
+          cd ventoy-*
+          dd if=/dev/zero of=/tmp/16384MBempty.img bs=512 count=31457280
+          sudo losetup -fP /tmp/16384MBempty.img
+          sudo yes | sudo ./Ventoy2Disk.sh -I /dev/loop0
+          cd ..
+          sudo $GITHUB_WORKSPACE/ventoy-*/tool/x86_64/mount.exfat-fuse /dev/loop0p1 /mnt/loop
+          sudo chmod 777 /mnt/loop
+          sudo mkdir /mnt/loop/ventoy
+          sudo cp ventoy.json /mnt/loop/ventoy
+          sudo umount /mnt/loop
+          sudo losetup -d /dev/loop0
+          cd /tmp
+          zip -r 16384MBempty.img.zip 16384MBempty.img
+          echo 16384 megabyte complete
       - name: Create release and upload assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -123,6 +138,7 @@ jobs:
             '/tmp/1024MBempty.img.zip#1024MBempty_build${{ github.run_number }}.img.zip' \
             '/tmp/4096MBempty.img.zip#4096MBempty_build${{ github.run_number }}.img.zip' \
             '/tmp/8192MBempty.img.zip#8192MBempty_build${{ github.run_number }}.img.zip' \
+            '/tmp/16384MBempty.img.zip#16384MBempty_build${{ github.run_number }}.img.zip' \
             '/tmp/fat32usb.zip#fat32usb_build${{ github.run_number }}.zip' \
             --title "Build ${{ github.run_number }}"
           
